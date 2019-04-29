@@ -65,10 +65,15 @@ gradlew task
 
 通过Android Studio生成的项目，比`gradle init`生成的内容多出了以下文件
 ```
-gradle-wrapper.properties
+local.properties  
 gradle.properties
 build.gradle(Module:app)
 ```
+local.properties：为构建系统配置本地环境属性，例如SDK安装路径。 该文件的内容由 Android Studio 自动生成并且专用于本地开发者环境，不应手动修改该文件，或将其纳入的版本控制系统
+
+gradle.properties：可以在其中配置项目范围 Gradle 设置，例如 Gradle 后台进程的最大堆大小。<br>
+参考：https://docs.gradle.org/current/userguide/build_environment.html
+
 ### 3.2 自定义Gradle构建
 
 #### 3.2.1 自定义属性
@@ -152,7 +157,7 @@ android {
 
 私密配置
 
-`local.properties`文件中定义
+新建`keystore.properties`文件，并定义
 ```
 keyAlias = gradle_jks
 keyPassword = 123456
@@ -161,7 +166,7 @@ storePassword = 123456
 ```
 `build.gradle(Module)`中
 ```
-def keystorePropertiesFile = rootProject.file("local.properties")
+def keystorePropertiesFile = rootProject.file("keystore.properties")
 def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
