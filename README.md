@@ -110,6 +110,14 @@ android {
 }
 ```
 #### 3.2.2 添加依赖
+
+配置插件
+```
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+```
+
 依赖类型
 ```
 dependencies { //配置此项目的依赖项                                              。
@@ -282,4 +290,15 @@ applicationVariants.all { variant ->
 
 ![image](image/5022DC2F-2D94-45DB-BA51-0563D58AB6A0.png)
 
+## 参考网址
+Gradle
+
+https://gradle.org/releases/
+https://docs.gradle.org/current/userguide/userguide.html
+
+Gradle For Android
+
+https://developer.android.google.cn/studio/build
+http://google.github.io/android-gradle-dsl/current/
+https://developer.android.google.cn/studio/releases/gradle-plugin
 
