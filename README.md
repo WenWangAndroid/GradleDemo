@@ -1,5 +1,4 @@
 # Gradle
----
 ## 1. Gradle简介
 ### 1.1 Gradle 定义
 Gradle是一个开源的构建自动化工具，专注于灵活性和性能。
@@ -20,13 +19,16 @@ gradle init                 //使用 Groovy
 gradle init --dsl kotlin    //使用kotlin
 ```
 命令执行成功后，项目文件夹中会生成如下内容
-![image](CCC47689-ADCE-453C-A6F3-418007F87DF2.png)
-1. 用于配置当前项目的Gradle构建脚本
-2. Gradle Wrapper可执行JAR
-3. Gradle Wrapper配置属性
-4. 基于Unix的系统的Gradle Wrapper脚本
-5. 适用于Windows的Gradle Wrapper脚本
-6. 用于配置Gradle构建的Gradle设置脚本
+
+![image](image/D1682EDB-68C8-42CC-AC33-9953E9B9FEA2.png)
+
+1. build.gradle.kts：用于配置当前项目的Gradle构建脚本
+2. gradle-wrapper.jar：Gradle Wrapper可执行JAR
+3. gradle-wrapper.properties：Gradle Wrapper配置属性
+4. gradlew：基于Unix的系统的Gradle Wrapper脚本
+5. gradlew.bat：适用于Windows的Gradle Wrapper脚本
+6. settings.gradle.kts：用于配置Gradle构建的Gradle设置脚本
+
 ### 2.4 创建Task
 在`build.gradle.kts`文件中编写代码
 ```
@@ -44,7 +46,7 @@ tasks.create<Copy>("copy"){
     into("Release")
 }
 ```
-执行命令，查看项目文件，可发现已经进行了压缩与复制
+执行命令，然后查看项目文件，可发现已经进行了压缩与复制
 ```
 gradlew zip
 gradlew copy
@@ -54,16 +56,24 @@ gradlew copy
 ```
 gradlew task
 ```
+相关命令
+
+![image](image/EC09FABD-627F-42A0-A818-6BD77A710A67.png)
 
 ## 3 Android Gradle 构建
 ### 3.1 项目gradle文件
 
 通过Android Studio生成的项目，比`gradle init`生成的内容多出了以下文件
 ```
-gradle-wrapper.properties
+local.properties  
 gradle.properties
 build.gradle(Module:app)
 ```
+local.properties：为构建系统配置本地环境属性，例如SDK安装路径。 该文件的内容由 Android Studio 自动生成并且专用于本地开发者环境，不应手动修改该文件，或将其纳入的版本控制系统
+
+gradle.properties：可以在其中配置项目范围 Gradle 设置，例如 Gradle 后台进程的最大堆大小。<br>
+参考：https://docs.gradle.org/current/userguide/build_environment.html
+
 ### 3.2 自定义Gradle构建
 
 #### 3.2.1 自定义属性
@@ -146,7 +156,8 @@ android {
 ```
 
 私密配置
-`local.properties`文件中定义
+
+新建`keystore.properties`文件，并定义
 ```
 keyAlias = gradle_jks
 keyPassword = 123456
@@ -155,7 +166,7 @@ storePassword = 123456
 ```
 `build.gradle(Module)`中
 ```
-def keystorePropertiesFile = rootProject.file("local.properties")
+def keystorePropertiesFile = rootProject.file("keystore.properties")
 def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
@@ -221,10 +232,17 @@ productFlavors {
 此时可查看Build Variants
 
 筛选前
+
+![image](image/2E0878DE-1A1F-4C52-AD6B-203CA742B22A.png)
+
 筛选后
 
+![image](image/A0E77F99-AF8E-4652-B07F-74FE187A5779.png)
+
 #### 3.2.7 配置源集
-Project -> Module -> src -> 右键 -> New -> Folder -> Java Folder（或其他）
+Project -> Module -> src -> 右键 -> New -> Folder -> Java Folder（或其它）
+
+![image](image/2E0878DE-1A1F-4C52-AD6B-203CA742B22A.png)
 
 #### 3.2.8 多APK配置
 根据手机 屏幕密度 或 应用程序二进制接口（ABI）的文件的不同，打包多个APK
@@ -244,6 +262,10 @@ Project -> Module -> src -> 右键 -> New -> Folder -> Java Folder（或其他�
         }
     }
 ```
+此时生成的apk
+
+![image](image/8D908316-FADC-42AF-84BB-AD784174592A.png)
+
 #### 3.2.9 自定义Apk名称
 ```
     //遍历 变体，批量修改APK 名称
@@ -253,3 +275,8 @@ Project -> Module -> src -> 右键 -> New -> Folder -> Java Folder（或其他�
         }
     }
 ```
+此时生成的apk
+
+![image](image/5022DC2F-2D94-45DB-BA51-0563D58AB6A0.png)
+
+
