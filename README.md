@@ -151,6 +151,7 @@ android {
 ```
 
 私密配置
+
 `local.properties`文件中定义
 ```
 keyAlias = gradle_jks
@@ -271,6 +272,6 @@ Project -> Module -> src -> 右键 -> New -> Folder -> Java Folder（或其它�
 ```
 此时生成的apk
 
-![image](image/8D908316-FADC-42AF-84BB-AD784174592A.png)
+![image](image/5022DC2F-2D94-45DB-BA51-0563D58AB6A0.png)
 
 
