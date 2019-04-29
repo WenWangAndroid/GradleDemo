@@ -49,8 +49,8 @@ tasks.create<Copy>("copy"){
 ```
 执行命令，然后查看项目文件，可发现已经进行了压缩与复制
 ```
-gradlew zip
-gradlew copy
+./gradlew zip
+./gradlew copy
 ```
 ### 2.5 查看可用Task
 执行命令
@@ -290,7 +290,15 @@ applicationVariants.all { variant ->
 
 ![image](image/5022DC2F-2D94-45DB-BA51-0563D58AB6A0.png)
 
-## 参考网址
+#### 3.2.10 打包命令
+
+./gradlew assemble + Build Variants 名称，例如：
+
+```
+./gradlew assembleFenrirDebug
+```
+
+## 4. 参考网址
 Gradle
 
 https://gradle.org/releases/
