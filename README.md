@@ -241,7 +241,8 @@ variantFilter { variant ->
 ![image](image/A0E77F99-AF8E-4652-B07F-74FE187A5779.png)
 
 #### 3.2.7 配置源集
-Project -> Module -> src -> 右键 -> New -> Folder -> Java Folder（或其它）
+Project -> Module -> src -> 右键 -> New -> Folder -> Java Folder（或其它）<br>
+配置完成后
 
 ![image](image/2E0878DE-1A1F-4C52-AD6B-203CA742B22A.png)
 
