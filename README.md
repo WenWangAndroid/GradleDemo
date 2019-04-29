@@ -3,9 +3,10 @@
 ### 1.1 Gradle 定义
 Gradle是一个开源的构建自动化工具，专注于灵活性和性能。
 ### 1.2 其他
-Gradle构建脚本使用Groovy或Kotlin DSL编写。
-Gradle支持多种IDE，包括Android Studio，Eclipse，IntelliJ IDEA，Visual Studio和XCode。
+Gradle构建脚本使用Groovy或Kotlin DSL编写。<br>
+Gradle支持多种IDE，包括Android Studio，Eclipse，IntelliJ IDEA，Visual Studio和XCode。<br>
 Gradle可应用于Android、C++、Groovy、Java、JavaScript、Kotlin、Scala
+
 ## 2. Gradle构建
 Gradle构建语言参考：https://docs.gradle.org/current/dsl/
 ### 2.1 下载安装
@@ -22,12 +23,12 @@ gradle init --dsl kotlin    //使用kotlin
 
 ![image](image/D1682EDB-68C8-42CC-AC33-9953E9B9FEA2.png)
 
-1. build.gradle.kts：用于配置当前项目的Gradle构建脚本
-2. gradle-wrapper.jar：Gradle Wrapper可执行JAR
-3. gradle-wrapper.properties：Gradle Wrapper配置属性
-4. gradlew：基于Unix的系统的Gradle Wrapper脚本
-5. gradlew.bat：适用于Windows的Gradle Wrapper脚本
-6. settings.gradle.kts：用于配置Gradle构建的Gradle设置脚本
+build.gradle.kts：用于配置当前项目的Gradle构建脚本<br>
+gradle-wrapper.jar：Gradle Wrapper可执行JAR<br>
+gradle-wrapper.properties：Gradle Wrapper配置属性<br>
+gradlew：基于Unix的系统的Gradle Wrapper脚本<br>
+gradlew.bat：适用于Windows的Gradle Wrapper脚本<br>
+settings.gradle.kts：用于配置Gradle构建的Gradle设置脚本
 
 ### 2.4 创建Task
 在`build.gradle.kts`文件中编写代码
@@ -187,22 +188,22 @@ android {
 ```
 #### 3.2.4 编译类型配置
 ```
-    buildTypes {
-        debug {
-            minifyEnabled true
-            shrinkResources true
-            signingConfig signingConfigs.debug
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-
-        release {
-            minifyEnabled true                      // 启用代码混淆
-            shrinkResources true                    // 移除未使用的资源
-            signingConfig signingConfigs.release    //配置签名
-            // 混淆规则文件
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
+buildTypes {
+    debug {
+        minifyEnabled true
+        shrinkResources true
+        signingConfig signingConfigs.debug
+        proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
     }
+
+    release {
+        minifyEnabled true                      // 启用代码混淆
+        shrinkResources true                    // 移除未使用的资源
+        signingConfig signingConfigs.release    //配置签名
+        // 混淆规则文件
+        proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+    }
+}
 ```
 封装此项目的所有构建类型配置。
 
@@ -222,12 +223,12 @@ productFlavors {
 ```
 #### 3.2.6 变体筛选
 ```
-    variantFilter { variant ->
-        def names = variant.flavors*.name
-        if (names.contains("fenrir") && variant.buildType.name == "release") {
-            setIgnore(true)
-        }
+variantFilter { variant ->
+    def names = variant.flavors*.name
+    if (names.contains("fenrir") && variant.buildType.name == "release") {
+        setIgnore(true)
     }
+}
 ```
 此时可查看Build Variants
 
@@ -247,33 +248,34 @@ Project -> Module -> src -> 右键 -> New -> Folder -> Java Folder（或其它�
 #### 3.2.8 多APK配置
 根据手机 屏幕密度 或 应用程序二进制接口（ABI）的文件的不同，打包多个APK
 ```
-    splits {
-        density {           // 根据屏幕密度配置
-            enable true
-            exclude "ldpi", "xxhdpi", "xxxhdpi"                         //屏幕密度
-            compatibleScreens 'small', 'normal', 'large', 'xlarge'      //屏幕尺寸
-        }
-
-        abi {               // 手机架构
-            enable true
-            reset()
-            include "armeabi", "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
-            universalApk false
-        }
+splits {
+    density {           // 根据屏幕密度配置
+        enable true
+        exclude "ldpi", "xxhdpi", "xxxhdpi"                         //屏幕密度
+        compatibleScreens 'small', 'normal', 'large', 'xlarge'      //屏幕尺寸
     }
+
+    abi {               // 手机架构
+        enable true
+        reset()
+        include "armeabi", "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+        universalApk false
+    }
+}
 ```
 此时生成的apk
 
 ![image](image/8D908316-FADC-42AF-84BB-AD784174592A.png)
 
 #### 3.2.9 自定义Apk名称
+遍历，批量修改输出的 APK 名称
+
 ```
-    //遍历 变体，批量修改APK 名称
-    applicationVariants.all { variant ->
-        variant.outputs.all { output ->
-            outputFileName = "${variant.flavorName}_${variant.buildType.name}_${variant.versionName}.apk"
-        }
+applicationVariants.all { variant ->
+    variant.outputs.all { output ->
+        outputFileName = "${variant.flavorName}_${variant.buildType.name}_${variant.versionName}.apk"
     }
+}
 ```
 此时生成的apk
 
